@@ -5,10 +5,10 @@ Encyclopedia
 {% endblock %}
 
 {% block body %}
-<h1>All Pages</h1>
+<h1>Search</h1>
 
 <ul>
-    {% for entry in entries %}
+    {% for entry in recommendations %}
     <li><a href="{% url 'entry' title=entry %}">{{ entry }}</a></li>
     {% endfor %}
 </ul>
