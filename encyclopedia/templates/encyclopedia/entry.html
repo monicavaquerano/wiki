@@ -8,4 +8,16 @@
 
 {{ html | safe }}
 
+<form action="{% url 'edit' %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="title" value="{{ title }}">
+    <input class="btn btn-info" type="submit" value="Edit">
+</form>
+
+<form action="{% url 'delete' %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="title" value="{{ title }}">
+    <input class="btn btn-danger" type="submit" value="Delete">
+</form>
+
 {% endblock %}

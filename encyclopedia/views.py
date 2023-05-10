@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from markdown2 import Markdown
 from . import util
+import os
 
 
 def convert_md_to_html(title):
@@ -55,3 +56,54 @@ def search(request):
 def new(request):
     if request.method == "GET":
         return render(request, "encyclopedia/new.html")
+    else:
+        title = request.POST["title"].strip()
+        content = request.POST["content"].strip()
+        if util.get_entry(title):
+            return render(
+                request,
+                "encyclopedia/error.html",
+                {"message": "This entry already exists."},
+            )
+        else:
+            util.save_entry(title, content)
+            html = convert_md_to_html(title)
+            return render(
+                request, "encyclopedia/entry.html", {"title": title, "html": html}
+            )
+
+
+def edit(request):
+    if request.method == "POST":
+        title = request.POST["title"].strip()
+        content = util.get_entry(title)
+        return render(
+            request, "encyclopedia/edit.html", {"title": title, "content": content}
+        )
+
+
+def save(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        content = request.POST["content"]
+        util.save_entry(title, content)
+        html = convert_md_to_html(title)
+        return render(
+            request, "encyclopedia/entry.html", {"title": title, "html": html}
+        )
+
+
+def delete(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        if os.path.exists(f"entries/{title}.md"):
+            os.remove(f"entries/{title}.md")
+            return render(
+                request, "encyclopedia/index.html", {"entries": util.list_entries()}
+            )
+        else:
+            return render(
+                request,
+                "encyclopedia/error.html",
+                {"message": "This entry doesn't exists."},
+            )
