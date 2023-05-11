@@ -8,13 +8,18 @@ Encyclopedia
 <h1>Edit Entry</h1>
 <form action="{% url 'save' %}" method="POST">
     {% csrf_token %}
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" value="{{ title }}">
-    <br>
-    <label for="content">Content:</label>
-    <br>
-    <textarea name="content" id="content" value="content">{{ content }}</textarea>
-    <br>
+
+    <div class="mb-3">
+        <label class="form-label" for="title">Title:</label>
+        <input class="form-control" type="text" id="title" name="title" value="{{ title }}" readonly>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="content">Content:</label>
+        <textarea class="form-control" name="content" id="content" value="content"
+            style="height: 50vh;">{{ content }}</textarea>
+    </div>
+
     <input class="btn btn-primary" type="submit" value="Save Entry">
 </form>
 
