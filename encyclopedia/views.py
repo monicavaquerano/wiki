@@ -1,8 +1,10 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from markdown2 import Markdown
 from . import util
 import os
+from random import choice
 
 
 def convert_md_to_html(title):
@@ -67,10 +69,7 @@ def new(request):
             )
         else:
             util.save_entry(title, content)
-            html = convert_md_to_html(title)
-            return render(
-                request, "encyclopedia/entry.html", {"title": title, "html": html}
-            )
+            return entry(request, title)
 
 
 def edit(request):
@@ -87,10 +86,7 @@ def save(request):
         title = request.POST["title"]
         content = request.POST["content"]
         util.save_entry(title, content)
-        html = convert_md_to_html(title)
-        return render(
-            request, "encyclopedia/entry.html", {"title": title, "html": html}
-        )
+        return redirect(f"/wiki/{title}")
 
 
 def delete(request):
@@ -107,3 +103,9 @@ def delete(request):
                 "encyclopedia/error.html",
                 {"message": "This entry doesn't exists."},
             )
+
+
+def random(request):
+    entries = util.list_entries()
+    title = choice(entries)
+    return redirect(f"/wiki/{title}")
