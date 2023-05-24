@@ -67,6 +67,12 @@ def new(request):
                 "encyclopedia/error.html",
                 {"message": "This entry already exists."},
             )
+        elif title == "":
+            return render(
+                request,
+                "encyclopedia/error.html",
+                {"message": "A title is needed."},
+            )
         else:
             util.save_entry(title, content)
             return entry(request, title)
