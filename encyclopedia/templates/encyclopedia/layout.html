@@ -18,20 +18,15 @@
 </head>
 
 <body>
-    <main class="d-flex flex-nowrap">
-
-        <div class="sidebar d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-            <a href="/"
-                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-
+    <main>
+        <div class="sidebar shadow-sm">
+            <a href="/" class="align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                 <div class="fs-1 my-2 ms-3">
                     <i class="bi bi-wikipedia"></i>
                     <span>Wiki</span>
                 </div>
-
             </a>
             <hr>
-
             <form class="nav-item mb-3" action="{% url 'search' %}" method="POST">
                 {% csrf_token %}
                 <input class="form-control me-2 search" type="text" name="q" placeholder="Search Encyclopedia">
@@ -56,34 +51,12 @@
                     </a>
                 </li>
             </ul>
-            <!-- <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>mdo</strong>
-                </a>
-                <ul class="dropdown-menu text-small shadow">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
-                </ul>
-            </div> -->
         </div>
-        {% block nav %}
-        {% endblock %}
-        </nav>
-        <div class="main col-lg-10 col-md-9">
+        <div class="main-content col-lg-10 col-md-9">
             {% block body %}
             {% endblock %}
         </div>
-        </div>
     </main>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>

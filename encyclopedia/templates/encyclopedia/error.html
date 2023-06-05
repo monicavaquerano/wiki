@@ -5,8 +5,14 @@ Encyclopedia
 {% endblock %}
 
 {% block body %}
-<h1>Error</h1>
-
-<p>{{ message }}</p>
-
+<div class="container-fluid ps-3">
+    <div class="pb-1">
+        <h1>Error</h1>
+    </div>
+    <hr>
+    <div class="alert alert-danger" role="alert">
+        <i class="bi bi-exclamation-octagon-fill"></i>
+        {{ message }}
+    </div>
+</div>
 {% endblock %}

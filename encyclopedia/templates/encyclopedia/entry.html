@@ -5,45 +5,49 @@
 {% endblock %}
 
 {% block body %}
+<div class="container-fluid ps-3">
 
-{{ html | safe }}
+    <div class="pb-1">
+        <h1>{{title}}</h1>
+    </div>
+    <hr>
+    <div class="mb-4">
+        {{ html | safe }}
+    </div>
 
-<div class="mr-2 d-grid gap-2 d-md-flex justify-content-md-end" aria-label="Edit and delete buttons">
-    <form action="{% url 'edit' %}" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="title" value="{{ title }}">
-        <button type="submit" class="btn btn-secondary mr-2" aria-label="Edit button">Edit</button>
-    </form>
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-        Delete
-    </button>
-
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="titleModalLabel">Delete Entry</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                This entry will be deleted definitely.
-                Are you sure you want to delete it?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <form action="{% url 'delete' %}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="title" value="{{ title }}">
-                    <button class="btn btn-danger" type="submit" aria-label="Delete button">Delete Entry</button>
-                </form>
+    <div class="me-4 d-grid gap-2 d-md-flex justify-content-md-end" aria-label="Edit and delete buttons">
+        <form action="{% url 'edit' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="title" value="{{ title }}">
+            <button type="submit" class="btn btn-secondary mr-2" aria-label="Edit button">Edit</button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                Delete
+            </button>
+        </form>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="titleModalLabel">Delete Entry</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    This entry will be deleted definitely.
+                    Are you sure you want to delete it?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <form action="{% url 'delete' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="title" value="{{ title }}">
+                        <button class="btn btn-danger" type="submit" aria-label="Delete button">Delete Entry</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

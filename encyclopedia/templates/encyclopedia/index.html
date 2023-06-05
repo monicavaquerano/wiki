@@ -5,12 +5,15 @@ Encyclopedia
 {% endblock %}
 
 {% block body %}
-<h1>All Pages</h1>
-
-<ul>
-    {% for entry in entries %}
-    <li><a href="{% url 'entry' title=entry %}">{{ entry }}</a></li>
-    {% endfor %}
-</ul>
-
+<div class="container-fluid ps-3">
+    <div class="pb-1">
+        <h1>All Pages</h1>
+    </div>
+    <hr>
+    <ul>
+        {% for entry in entries %}
+        <li><a href="{% url 'entry' title=entry %}">{{ entry }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
