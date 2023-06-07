@@ -6,6 +6,8 @@ from . import util
 import os
 from random import choice
 
+from django.contrib import messages
+
 
 def convert_md_to_html(title):
     content = util.get_entry(title)
@@ -75,6 +77,7 @@ def new(request):
             )
         else:
             util.save_entry(title, content)
+            messages.add_message(request, messages.INFO, "Saved Successfully.")
             return entry(request, title)
 
 
@@ -83,7 +86,9 @@ def edit(request):
         title = request.POST["title"].strip()
         content = util.get_entry(title)
         return render(
-            request, "encyclopedia/edit.html", {"title": title, "content": content}
+            request,
+            "encyclopedia/edit.html",
+            {"title": title, "content": content},
         )
 
 
@@ -92,6 +97,7 @@ def save(request):
         title = request.POST["title"]
         content = request.POST["content"]
         util.save_entry(title, content)
+        messages.add_message(request, messages.INFO, "Saved Successfully.")
         return redirect(f"/wiki/{title}")
 
 

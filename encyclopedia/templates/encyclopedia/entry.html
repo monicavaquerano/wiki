@@ -14,7 +14,6 @@
     <div class="mb-4">
         {{ html | safe }}
     </div>
-
     <div class="me-4 d-grid gap-2 d-md-flex justify-content-md-end" aria-label="Edit and delete buttons">
         <form action="{% url 'edit' %}" method="POST">
             {% csrf_token %}
@@ -49,5 +48,15 @@
             </div>
         </div>
     </div>
+    {% if messages %}
+    <br>
+    <div class="alert alert-info" role="alert">
+        <ul class="messages list-unstyled">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
